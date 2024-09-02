@@ -77,9 +77,15 @@ export default {
             ),
     });
     return {
-        // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
-        // contactLocal để liên kết với các input trên form
-        contactLocal: this.contact,
+        contactLocal: this.contact
+        ? this.contact
+        : {
+            name: "",
+            email: "",
+            address: "",
+            phone: "",
+            favorite: false,
+          },
         contactFormSchema,
     };
 },
@@ -93,8 +99,6 @@ methods: {
     Cancel(){
         const reply = window.confirm('You have unsaved changes! Do you want to leave?')
             if (!reply) {
-                // stay on the page if
-                // user clicks 'Cancel'
                 return false
             }
             else this.$router.push({ name: "contactbook" });
